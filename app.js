@@ -6,6 +6,8 @@ import passport from "passport";
 import { configurePassport } from "./config/configPassport.js";
 import authRoutes from "./routes/authRoutes.js";
 import taskRoutes from "./routes/taskRoutes.js";
+import MongoStore from "connect-mongo";
+import mongoose from "mongoose";
 
 dotenv.config();
 
@@ -22,6 +24,9 @@ app.use(
     cookie: {
       maxAge: 60000 * 60,
     },
+    store: MongoStore.create({
+      client: mongoose.connection.getClient(),
+    }),
   })
 );
 
